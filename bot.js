@@ -63,6 +63,7 @@ client.on("message", async message => {
   if(command === "whois") {
     let member = message.mentions.members.first();
     var muted = "no";
+    var username = (member.nickname == undefined ? member.user.username : member.nickname);
     if(message.member.roles.some(r=>["Muted"].includes(r.name)) ) muted = "yes";
     if(!member) return;
     message.channel.send({"embed": { "color": 2683730,
@@ -71,7 +72,7 @@ client.on("message", async message => {
     "author": { "name": member.user.tag, "icon_url": member.user.avatarURL },
     "fields": [ 
       {"name": ".nickname",
-        "value": member.nickname,
+        "value": username,
         "inline": true },
       {"name": ".id",
         "value": member.user.id,
